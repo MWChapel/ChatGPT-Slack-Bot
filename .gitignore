@@ -1,0 +1,7 @@
+build/
+dist/
+*.py[cod]
+__pycache__/
+.venv*
+.env*
+.requirements.zip
