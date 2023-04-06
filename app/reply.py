@@ -32,10 +32,19 @@ def update_wip_message(
     user: str,
 ) -> SlackResponse:
     system_messages = [msg for msg in messages if msg["role"] == "system"]
+    blocks = [
+                { 
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": text
+                    }
+                }
+            ]
     return client.chat_update(
         channel=channel,
         ts=ts,
-        text=text,
+        blocks=blocks,
         metadata={
             "event_type": "chat-gpt-convo",
             "event_payload": {"messages": system_messages, "user": user},
