@@ -10,7 +10,8 @@ from app.env import (
     OPENAI_TIMEOUT_SECONDS,
     SYSTEM_TEXT_ZORK,
     SYSTEM_TEXT_JEOPARDY,
-    SYSTEM_TEXT_MUD
+    SYSTEM_TEXT_MUD,
+    SYSTEM_TEXT_DANDD
 )
 from app.openai_ops import (
     start_receiving_openai_response,
@@ -36,7 +37,7 @@ def reply_if_necessary(
 ):
     wip_reply = None
     message = message['text']
-    if message == "Zork Me!" or message == "Play Jeopardy!" or message == "Make A Dungeon!":
+    if message == "Zork Me!" or message == "Play Jeopardy!" or message == "Make A Dungeon!" or message == "Lets Play Dungeons And Dragons!":
         try:
             if payload.get("thread_ts") is not None:
                 return
@@ -53,6 +54,8 @@ def reply_if_necessary(
                 new_system_text = SYSTEM_TEXT_ZORK.format(bot_user_id=context.bot_user_id)
             if message == "Make A Dungeon!":
                 new_system_text = SYSTEM_TEXT_MUD.format(bot_user_id=context.bot_user_id)
+            if message == "Lets Play Dungeons And Dragons!":
+                new_system_text = SYSTEM_TEXT_DANDD.format(bot_user_id=context.bot_user_id)
             else: 
                 new_system_text = SYSTEM_TEXT_JEOPARDY.format(bot_user_id=context.bot_user_id) 
 
